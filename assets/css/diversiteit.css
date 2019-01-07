@@ -1,0 +1,375 @@
+#diversiteit {
+	font-size: 12px;
+	line-height: 22px;
+	width: 890px;
+	margin: auto;
+	padding: 0px;
+	padding-bottom: 50px;
+	text-align: center;
+}
+
+#diversiteit label {
+	margin: 0;
+	display:inline !important;
+	padding-left: .5em !important;
+}
+
+#diversiteit label:hover {
+   color:#f00;
+}
+
+#diversiteit .page1 {
+	display: block;
+}
+
+#diversiteit .page1 {
+	text-align: left;
+}
+
+#diversiteit .page1 .row1 .col,
+#diversiteit .page1 .row2 .col {
+	position: relative;
+	float: left;
+	width: 270px;
+	height: 270px;
+	background: #DEDEDE;
+	margin: 6px;
+	padding: 6px;
+	font-size: 11px;
+}
+
+#diversiteit .page1 .row1 .col,
+#diversiteit .page1 .row2 .col1,
+#diversiteit .page1 .row2 .col2,
+#diversiteit .page1 .row2 .col3 {
+	-webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+	-moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+	box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+}
+
+#diversiteit .page1 .row2 .col {
+	height: 125px;
+	cursor: pointer;
+	margin-bottom: 50px;
+}
+
+#diversiteit .page1 .row1 {
+	height: 250px;
+	cursor: pointer;
+}
+
+#diversiteit .page1 .row2 .col4,
+#diversiteit .page1 .row2 .col5,
+#diversiteit .page1 .row2 .col6 {
+	background: white;
+
+}
+
+#diversiteit .m-text {
+	color: red;
+}
+
+#diversiteit .m-text,
+#diversiteit .legend-text1,
+#diversiteit .legend-text2,
+#diversiteit .legend-text3 {
+	font-size: 12px;
+}
+
+#diversiteit .legend {
+	font-family: arial;
+	font-size: 10px;
+	-webkit-font-smoothing: subpixel-antialiased;
+	font-smoothing: subpixel-antialiased;
+}
+
+#diversiteit .page1 h1 {
+	color: #2CACEA;
+	font-size: 22px;
+	text-align: center;
+	padding-top: 100px;
+}
+
+#diversiteit .page1 .icoon1 {
+	background: url("../img/diversiteit/absoluut.png");
+}
+
+#diversiteit .page1 .icoon2 {
+	background: url("../img/diversiteit/text.png");
+}
+
+#diversiteit .page1 .icoon3 {
+	background: url("../img/diversiteit/info.png");
+}
+
+#diversiteit .page1 .icoon {
+	margin:  50px auto;
+	height: 37px;
+	width: 37px;
+	background-size: 37px;
+	background-position: 0px -37px;
+}
+
+#diversiteit .page2 {
+	display: none;
+}
+
+#diversiteit .top {
+	width: 100%;
+}
+
+#diversiteit select {
+	border: 1px solid #CCC;
+}
+
+#diversiteit select#diversiteit_indicator option:disabled {
+	font-weight: bold;
+	color: black;
+}
+
+#diversiteit .menu .indicator {
+	display: none;
+}
+
+#diversiteit fieldset.niveau {
+	display: none;
+}
+
+#diversiteit fieldset.gebieden {
+	display: none;
+}
+
+#diversiteit fieldset {
+	border: 1px solid black;
+}
+
+#diversiteit .menu {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: left;
+	position: relative;
+	float: left;
+	background: #DEDEDE;
+	padding: 3px;
+	width: 360px;
+	-webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+	-moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+	box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+}
+
+#diversiteit .menu select#diversiteit_indicator {
+	width: 275px;
+	overflow: scroll;
+}
+
+
+#diversiteit .menu fieldset div span,
+#diversiteit .menu fieldset div input {
+	display: inline;
+	margin-bottom: 0; /* I added this after I posted my reply */
+	vertical-align: middle; /* Fixes any weird issues in Firefox and IE */
+}
+
+#diversiteit .visualisatie,
+#diversiteit .kaart {
+	padding: 0px;
+	width: 500px;
+	height: 425px;
+	margin: 10px;
+	text-align: left;
+	position: relative;
+	float: right;
+	background: #DEDEDE;
+	-webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+	-moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+	box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+	display: none;
+}
+
+#diversiteit svg .axis path {
+	stroke: #ddd;
+	fill: none;
+	shape-rendering: crispEdges;
+}
+
+#diversiteit svg .dark {
+	fill: black;
+}
+
+#diversiteit svg .light {
+	fill: white;
+}
+
+#diversiteit svg text.tooltip {
+	font-size: 16px;
+	text-anchor: middle;
+}
+
+#diversiteit svg g.sd {
+	/*opacity: 0.2;*/
+}
+
+#diversiteit svg .grid line, #diversiteit svg .grid path {
+	fill: none;
+	stroke: #848484;
+}
+
+#diversiteit .visualisatie .color .sd {
+	color: #C7C7C7;
+}
+
+#diversiteit .kaart .color .bg {
+	color: #DEDEDE;
+}
+
+#diversiteit .visualisatie .color .ln {
+	color: #000;
+}
+
+#diversiteit svg .axis line, #diversiteit svg .axis path {
+	stroke: #848484;
+	fill: none;
+	shape-rendering: crispEdges;
+}
+
+#diversiteit svg .axis text {
+	fill: #000;
+}
+
+#diversiteit svg .axis line {
+
+}
+
+#diversiteit svg .gebied22 {
+	stroke: #848484;
+	stroke-width: 1px;
+	fill: transparent;
+	shape-rendering: geometricPrecision;
+}
+
+#diversiteit svg .water {
+	fill: #f0f5fa;
+	shape-rendering: geometricPrecision;
+}
+
+#diversiteit svg .stadsdeel {
+	stroke: #848484;
+	stroke-width: 1px;
+	fill: transparent;
+	shape-rendering: geometricPrecision
+}
+
+#diversiteit svg .referentie.bebouwing {
+	fill: #f6f6f6;
+	shape-rendering: geometricPrecision
+}
+
+#diversiteit svg .wijk {
+	stroke: #999;
+	stroke-width: 1px;
+	shape-rendering: geometricPrecision;
+	fill: #fff;
+}
+
+#diversiteit svg .ringweg {
+	stroke: none;
+	stroke-width: 3px;
+	fill: none;
+	stroke-linecap: "round";
+	shape-rendering: geometricPrecision
+}
+
+#diversiteit .text {
+	text-align: justify;
+	width: 100%;
+}
+
+#diversiteit .text {
+	display: none;
+}
+
+#diversiteit .text.introductie {
+	display: block;
+	padding-top: 45px;
+}
+
+#diversiteit .text .grafiek {
+	border: 1px solid #aaa;
+	height: 200px;
+	width: 300px;
+	position: absolute;
+	visibility: hidden;
+	background: #eee;
+	-webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+	-moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+	box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+}
+
+#diversiteit .download {
+	float: right;
+	width: 20px;
+	height: 20px;
+	margin: 0px 2px 0px 0px;
+	cursor: pointer;
+}
+
+#diversiteit .opslaan {
+	position: absolute;
+	top: 400px;
+	left: 475px;
+}
+
+#diversiteit .download.button1 {
+	background: url("../img/diversiteit/absoluut.png");
+	background-size: 20px;
+	background-position: 0px -40px;
+}
+
+#diversiteit .download.opslaan {
+	background: url("../img/diversiteit/opslaan.png");
+	background-size: 20px;
+	background-position: 0px -40px;
+}
+
+#diversiteit .download.button2 {
+	background: url("../img/diversiteit/text.png");
+	background-size: 20px;
+	background-position: 0px -40px;
+}
+
+#diversiteit .download.button3 {
+	background: url("../img/diversiteit/info.png");
+	background-size: 20px;
+	background-position: 0px -40px;
+}
+
+#diversiteit .download.button1:hover,
+#diversiteit .download.button1.active,
+#diversiteit .opslaan:hover,
+#diversiteit .opslaan.active,
+#diversiteit .download.button2:hover,
+#diversiteit .download.button2.active,
+#diversiteit .download.button3:hover,
+#diversiteit .download.button3.active {
+	background-position: 0px -20px;
+}
+
+#diversiteit .download.button1.disabled,
+#diversiteit .download.button2.disabled,
+#diversiteit .opslaan.disabled,
+#diversiteit .download.button3.disabled {
+	background-position: 0px 0px;
+	cursor: no-drop;
+}
+
+#diversiteit .link {
+  cursor: pointer;
+  border-bottom-width: 1px;
+  border-bottom-style: dotted;
+  border-bottom-color: #333333;
+}
+
+#diversiteit .link:hover {
+  color: #ffffff;
+  background-color: #f6b402;
+}

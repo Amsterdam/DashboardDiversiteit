@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="pragma" content="no-cache">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<script src="https://amsterdam.github.io/x3/v0.1/d3.min.js"></script>
+	<script src="https://amsterdam.github.io/x3/v0.1/x3.min.js"></script>
+	<script src="./assets/js/x3/axis.js"></script>
+	<script src="./assets/js/x3/bar.js"></script>
+	<script src="./assets/js/diversiteit.js"></script>
+	<link rel="icon" href="../../favicon.ico">
+	<title>Amsterdam Diversiteit Dashboard</title>
+	<link href="./assets/css/diversiteit.css" rel="stylesheet">
+	</head>
+	<body>
+		<div id="diversiteit">
+			<div class="page1">
+				<center><p>Welkom bij de Diversiteitsmonitor<br />
+				<i>gemaakt door Onderzoek, Informatie en Statistiek (OIS) in opdracht van Onderwijs, Jeugd en Zorg (OJZ) Diversiteit</p></i>
+				<p>Deze monitor maakt het mogelijk om verschillende groepen Amsterdammers te vergelijken op de thema’s gelijke kansen, participatie en leefsituatie. Door middel van onderstaande knoppen kunt u de onderliggende indicatoren benaderen.</p></center>
+				<div class="row row1">
+					<div class="col col1"><h1>GELIJKE KANSEN</h1></div>
+					<div class="col col2"><h1>PARTICIPATIE</h1></div>
+					<div class="col col3"><h1>LEEFSITUATIEINDEX</h1></div>
+				</div>
+				<div class="row row2">
+					<div class="col col1" title="Door middel van deze icoon kunnen de ruwe cijfers gedownload worden."><div class="icoon icoon1"></div></div>
+					<div class="col col2" title="De opvallendste observaties zijn samengevat en kunnen gedownload worden door de samenvatting knop te gebruiken."><div class="icoon icoon2"></div></div>
+					<div class="col col3" title="Lees de toelichting voor informatie over de methode, definities en bronnen. De toelichting is te downloaden via de i-knop."><div class="icoon icoon3"></div></div>
+				</div>
+			</div>
+			<div class="page2">
+				<div class="top">
+					<div class="menu">
+						Meetpunt:
+						<select id="diversiteit_verslagjaar">
+							<option value="1">1 (2012 - 2014)</option>
+							<option value="2">2 (2014 - 2016)</option>
+							<option value="3">3 (2016 - 2018)</option>
+						</select>
+						<div class="download button1" title="Download ruwe cijfers"></div>
+						<div class="download button2" title="Download samenvatting"></div>
+						<div class="download button3" title="Download toelichting"></div>
+						<br />
+						Thema:
+						<select id="diversiteit_themas">
+						<option>Introductie</option>
+						</select>
+						<div class="indicator">
+						Indicator: <select id="diversiteit_indicator">
+						</select><br />
+					</div>
+					<fieldset class="niveau">
+					<legend>Niveau</legend>
+					</fieldset>
+					<fieldset class="gebieden">
+					<legend>Gebieden</legend>
+					</fieldset>
+					<center>* Niet in alle meetpunten beschikbaar</center>
+				</div>
+				<div id="vis" class="visualisatie">
+					<div class="download opslaan" title="Sla visualisatie op als plaatje"></div>
+				</div>
+				<div class="kaart">
+					<div class="download opslaan" title="Sla visualisatie op als plaatje"></div>
+				</div>
+			</div>
+			<div class="text indicator">
+				<p>Netto arbeidsparticipatie is een van de kernindicatoren van structurele participatie. Het geeft het aandeel werkzame beroepsbevolking met werk van minimaal 1 uur per week van de potentiële beroepsbevolking (alle personen van 15 tot en met 74 jaar). Voor volwassen Amsterdammers geeft het een goed beeld van participatie in de maatschappij weer.  De cijfers over netto arbeidsparticipatie in Amsterdam laten zien dat deze vorm van participatie hoger is onder mannen dan onder vrouwen. Het percentage mannen dat werkt is met 71,5% hoger dan het Amsterdams gemiddelde van 67,7%. Het  percentage vrouwen met werk is met 63,5% lager dan het Amsterdams gemiddelde. Dit verschil tussen mannen en vrouwen is het meest uitgesproken onder de groep niet-westerse allochtonen. Naast de geslachtsverschillen zien we ook verschillen in participatie tussen verschillende opleidingsniveaus. Onder groepen met lager opleidingsniveau is de arbeidsparticipatie ook lager. Daarnaast zien we dat de geslachtsverschillen het kleinst zijn onder hoogopgeleide autochtone en westers allochtone Amsterdammers. Geslachtsverschillen zijn dus afhankelijk van herkomst en opleidingsniveau.</p>
+			</div>
+		</div>
+	</body>
+</html>

@@ -17,6 +17,9 @@ function diversiteit() {
 	this.kaartg = null;
 	this.defaults = null;
 	this.colors = [];
+	/*
+	 * De kleurstalen voor 2, 3, 6 of 7 staven
+	 */
 	this.swatches = {
 		7: ["#134B97", "#1680CA", "#2CACEA", "#72BBEB", "#9ECEF1", "#C5E1F7", "#E5F1FA" ],
 		6: ["#134B97", "#1680CA", "#72BBEB", "#9ECEF1", "#C5E1F7", "#E5F1FA" ],
@@ -30,6 +33,10 @@ String.prototype.repeat=function(num) {
 	return new Array(num+1).join(this);
 }
 
+/*
+ * Helpen functies om te bepalen of we zwarte of witte
+ * tekst over de staven willen projecteren
+ */
 diversiteit.prototype.luminance=function(r, g, b) {
 	var a = [r,g,b].map(function(v) {
 		v /= 255;
@@ -664,6 +671,10 @@ diversiteit.grafiek_groot.prototype.create=function(parent) {
 					d3.select(el).append("text")
 						.text(d['y'])
 						.attr("class", function() {
+							/*
+							 * Afhankelijk van de kleur van de staaf willen we
+							 * zwarte of witte letters.
+							 */
 							if(parseInt(rect.attr("height")) < this.getBBox().height) {
 								return 'tooltip dark';
 							} else {
@@ -818,6 +829,9 @@ diversiteit.grafiek_groot.prototype.create=function(parent) {
 	this.vis.redraw();
 }
 
+/*
+ * Verwerk de nieuw geselecteerde thema
+ */
 diversiteit.prototype.parseThema=function(json, parent) {
 	for(var i in json) {
 		if(typeof json[i] == 'object') {
@@ -835,6 +849,9 @@ diversiteit.prototype.parseThema=function(json, parent) {
 	}
 }
 
+/*
+ * Verwerk de nieuw geselecteerde indicator
+ */
 diversiteit.prototype.parseIndicator=function(json, parent) {
 	for(var i in json) {
 		if(typeof json[i] == 'object') {
@@ -856,6 +873,9 @@ diversiteit.prototype.parseIndicator=function(json, parent) {
 	}
 }
 
+/*
+ * Zet alle checkboxes weer aan
+ */
 diversiteit.prototype.resetCheckboxes=function() {
 	d3.selectAll("input").each(function(d, i) {
 		var obj1 = d3.select(this);
@@ -866,6 +886,9 @@ diversiteit.prototype.resetCheckboxes=function() {
 	});
 }
 
+/*
+ * Zet de checkboxes uit die niet te selcteren zijn
+ */
 diversiteit.prototype.disableCheckboxes=function(cb, list) {
 	var obj2 = d3.select(cb);
 	var niv2 = obj2.attr("id").replace('diversiteit_', '');
@@ -901,6 +924,10 @@ diversiteit.prototype.flatten=function(level, list, result) {
 	return result1;
 }
 
+/*
+ * Laat de labels op de juiste plek in de grafiek zien
+ * en getoond als daadwerkelijke kruizingen.
+ */
 diversiteit.prototype.parseLegend=function(ind, content) {
 	var list = [];
 	for(var i in _diversiteit.levels) {
@@ -980,10 +1007,16 @@ diversiteit.prototype.parseLegend=function(ind, content) {
 	}
 }
 
+/*
+ * Wanneer van toepassing, werk de grafiek bij
+ */
 diversiteit.prototype.parseGraph=function(obj) {
 	var sel = document.getElementById('diversiteit_indicator');
 	var ind = d3.select(sel.options[sel.selectedIndex]).attr("name").replace('diversiteit_', '');
 
+	/*
+	 * Haal de waardes, metadata en labels behorende tot deze kruizing op
+	 */
 	var values = _diversiteit.getValues(_diversiteit.levels.join('-'), ind);
 	var range = _diversiteit.getValues('N0', ind);
 	var labels1 = _diversiteit.getValues(_diversiteit.levels[0], ind);
@@ -992,6 +1025,9 @@ diversiteit.prototype.parseGraph=function(obj) {
 		{'g': 2, 'y': range[2]["Gemiddeld+SD"], 'x': 0, 'color': colors['grafiek-sd']}
 	];*/
 
+	/*
+	 * Verwerk de labels tot kruizingen wanneer van toepassing
+	 */
 	var labels = [];
 	for(var i in labels1) {
 		labels.push(Object.keys(labels1[i])[0]);
@@ -1013,6 +1049,10 @@ diversiteit.prototype.parseGraph=function(obj) {
 			}
 			var obj1 = {};
 			obj1['x'] = key;
+			/*
+			 * Afhankelijk van het aantal balken dat we willen laten zien,
+			 * passen we verschillende kleurstalen toe.
+			 */
 			if(_diversiteit.levels.length == 1) {
 				obj1['color'] = _diversiteit.swatches[labels.length][i];
 			} else if(_diversiteit.levels.length > 1) {
@@ -1028,6 +1068,10 @@ diversiteit.prototype.parseGraph=function(obj) {
 		}
 	}
 
+	/*
+	 * Afhankelijk van de kruizing hebben we één
+	 * of meerdere gegroepeerde balken.
+	 */
 	_diversiteit.grafiekg.nrgroups = 1;
 	for(var i in groups) {
 		if(groups[i] > _diversiteit.grafiekg.nrgroups) {
@@ -1045,6 +1089,9 @@ diversiteit.prototype.parseGraph=function(obj) {
 	_diversiteit.parseLegend(ind);
 }
 
+/*
+ * Wanneer van toepassing, werk de kaart bij.
+ */
 diversiteit.prototype.parseMap=function(obj) {
 	var sel = document.getElementById('diversiteit_indicator');
 	var ind = d3.select(sel.options[sel.selectedIndex]).attr("name").replace('diversiteit_', '');
@@ -1058,6 +1105,13 @@ diversiteit.prototype.parseMap=function(obj) {
 	}
 }
 
+/*
+ * Bij het selecteren van een indicator moeten de checkboxes
+ * waarmee deze indicator niet te kruizen is uit gezet worden.
+ * Wanneer geselecteerde indicator uitgezet wordt, dan moeten de 
+ * uitgezette checkboxes weer aangezet worden afhankelijk van
+ * de op dat moment te selecteren checkboxes.
+ */
 diversiteit.prototype.parseCheck=function(id) {
 
 	var cb = d3.select('#' + id).node();
@@ -1071,6 +1125,10 @@ diversiteit.prototype.parseCheck=function(id) {
 		_diversiteit.levels.push(niv);
 	}
 
+	/*
+	 * Afhankelijk van het type indicator willen we ofwel
+	 * een kaart laten zien ofwel een grafiek.
+	 */
 	if(type == 'v') {
 		_diversiteit.showMap = 0;
 		d3.select('#diversiteit .kaart').style('display', 'none');
@@ -1087,6 +1145,9 @@ diversiteit.prototype.parseCheck=function(id) {
 		_diversiteit.disableCheckboxes(cb, []);
 	}
 
+	/*
+	 * Als geen checkbox geselecteerd is, dan moet de grafiek leeg worden gemaakt.
+	 */
 	if(_diversiteit.levels.length == 0) {
 		_diversiteit.resetGraph();
 	}
@@ -1122,6 +1183,9 @@ diversiteit.prototype.parseCheck=function(id) {
 	_diversiteit.track();
 }
 
+/*
+ * Maak de checkboxes voor de grafiek opties aan
+ */
 diversiteit.prototype.parseVariables=function(json, parent) {
 	var hasVar = 0;
 	for(var i in json) {
@@ -1158,6 +1222,9 @@ diversiteit.prototype.parseVariables=function(json, parent) {
 	}
 }
 
+/*
+ * Maak de checkboxes voor de kaart opties aan
+ */
 diversiteit.prototype.parseArea=function(json, parent) {
 	for(var i in json) {
 		if(typeof json[i] == 'object') {
@@ -1204,6 +1271,9 @@ diversiteit.prototype.getCategory=function(json, id) {
 	return false;
 }
 
+/*
+ * Zet CSV om naar JSON object
+ */
 diversiteit.prototype.parseData=function(csv) {
 	data = new Array();
 	var row = csv.split("\n");
@@ -1216,6 +1286,9 @@ diversiteit.prototype.parseData=function(csv) {
 	}
 }
 
+/*
+ * Haal de op dit moment geselecteerde kruizing op
+ */
 diversiteit.prototype.getCrossing=function(niv) {
 	var ret = [];
 	var tmp = niv.split('-');
@@ -1228,6 +1301,9 @@ diversiteit.prototype.getCrossing=function(niv) {
 	return ret;
 }
 
+/*
+ * Haal de tekst bij een indicator op
+ */
 diversiteit.prototype.getText=function(ind) {
 	for(var x in data[0]) {
 		if(data[0][x].trim() == 'T'+ind) {
@@ -1237,6 +1313,10 @@ diversiteit.prototype.getText=function(ind) {
 	return '';
 }
 
+/*
+ * Haal afhankelijk van de kruizing de waardes horende tot een
+ * indicator op
+ */
 diversiteit.prototype.getValues=function(niv, ind) {
 	var ret = [];
 	var nivcol = -1;
@@ -1273,6 +1353,9 @@ diversiteit.prototype.getValues=function(niv, ind) {
 	return ret;
 }
 
+/*
+ * Het resetten van de kaart
+ */
 diversiteit.prototype.resetGraph=function() {
 	if(d3.select('#diversiteit .visualisatie').style('display') == 'block') {
 		_diversiteit.grafiekg.nrgroups = 1;
@@ -1300,6 +1383,9 @@ diversiteit.prototype.resetGraph=function() {
     }
 };*/
 
+/*
+ * Initialiseren van grafiek en kaart
+ */
 diversiteit.prototype.initialize=function() {
 	if(_diversiteit.initialized == 0) {
 		_diversiteit.initialized = 1;
@@ -1311,6 +1397,9 @@ diversiteit.prototype.initialize=function() {
 	}
 }
 
+/*
+ * Het terugzetten van het jaar selectiebox
+ */
 diversiteit.prototype.resetYear=function() {
 	var fs1 = d3.selectAll("fieldset.niveau");
 	var fs2 = d3.selectAll("fieldset.gebieden");
@@ -1323,6 +1412,9 @@ diversiteit.prototype.resetYear=function() {
 	fs2.selectAll("br").remove();*/
 }
 
+/*
+ * Functie om visualisatie naar beginstand te resetten
+ */
 diversiteit.prototype.resetAll=function() {
 	_diversiteit.resetGraph();
 	if(d3.select('#diversiteit .kaart').style('display') == 'block') {
@@ -1361,12 +1453,18 @@ diversiteit.prototype.resetAll=function() {
 	}
 }
 
+/*
+ * Bezoekers tracker
+ */
 diversiteit.prototype.track=function() {
 	d3.xhr("/track")
 		.header("Content-Type", "application/json")
 		.post(JSON.stringify({ cookie: document.cookie, data: _diversiteit.clicked}));
 }
 
+/*
+ * Helpers voor het omzetten van grafiek naar plaatje
+ */
 function generateStyleDefs(svgDomElement) {
   /*var styleDefs = "";
   var sheets = document.styleSheets;
@@ -1412,7 +1510,7 @@ function copyStylesInline(destinationNode, sourceNode) {
    }
 }
 
-function triggerDownload (imgURI, fileName) {
+function triggerDownload(imgURI, fileName) {
   var evt = new MouseEvent("click", {
     view: window,
     bubbles: false,
@@ -1425,6 +1523,9 @@ function triggerDownload (imgURI, fileName) {
   a.dispatchEvent(evt);
 }
 
+/*
+ * Hier begint alles
+ */
 window.onload=function() {
 	_diversiteit = new diversiteit();
 	_diversiteit.colors['kaart-bg'] = '#DEDEDE';
@@ -1432,11 +1533,23 @@ window.onload=function() {
 	_diversiteit.colors['grafiek-sd'] = '#C7C7C7';
 
 	x = 0;
+	/*
+	 * Hier wordt het wisselen van verslagjaar afgehandeld
+	 */
 	d3.selectAll("select#diversiteit_verslagjaar").on("change",function() {
 		var val = d3.select('select').property('value')
+		/*
+		 * Haal de data op
+		 */
 		d3.text("assets/data/diversiteit/" + val + "/data.csv?" + Math.floor(Math.random() * 1000), function(csv) {
+			/*
+			 * Transformeer de CSV naar een JSON object
+			 */
 			_diversiteit.parseData(csv);
 
+			/*
+			 * Vervang de inhoud huidige actieve visualisatie door die van het geselecteere verslagjaar
+			 */
 			if(_diversiteit.levels.length > 0) {
 				var id = 'diversiteit_' + _diversiteit.levels[_diversiteit.levels.length-1];
 				d3.selectAll('#' + id).property('checked', true);
@@ -1447,8 +1560,14 @@ window.onload=function() {
 
 				var obj = _diversiteit.getCategory(_diversiteit.categories, id1);
 
+				/*
+				 * Dit doen we echter alleen als we op de visualisatie pagina zitten
+				 */
 				if(d3.select('#diversiteit .visualisatie').style('display') == 'block') {
 
+					/*
+					 * Werk de grafiek bij en teken hem opnieuw
+					 */
 					_diversiteit.grafiekg.yAxis.set("scale", obj['scale']);
 					var min = _diversiteit.grafiekg.yAxis.get("scale")[0];
 					_diversiteit.grafiekg.updateM(min);
@@ -1460,6 +1579,9 @@ window.onload=function() {
 					_diversiteit.grafiekg.vis.get("svg").selectAll('.text2').text(obj['axtitle'][0]);
 					var ind = d3.select(sel.options[sel.selectedIndex]).attr("name").replace('diversiteit_', '');
 
+					/*
+					 * Haal de nieuwe meta waardes op (SD en M)
+					 */
 					var range = _diversiteit.getValues('N0', ind);
 					var content = [
 						{'g': 1, 'y': range[1]["Gemiddeld-SD"], 'x': 0, 'color': _diversiteit.colors['grafiek-sd']},
@@ -1479,14 +1601,21 @@ window.onload=function() {
 					_diversiteit.grafiekg.vis.redraw();
 				}
 
+				/*
+				 * Zorg dat de checkboxes worden bijgewerkt
+				 */
 				_diversiteit.parseCheck(id);
 			}
 		});
 	});
 
+	/*
+	 * Download knoppen van visualisatie of voorpagina
+	 */
 	d3.select('#diversiteit .page1 .row2 .col1').on("click", function() {
 		window.open('assets/data/diversiteit/ruwecijfers.xlsx');
 	});
+
 	d3.select('#diversiteit .download.button1').on("click", function() {
 		var el = d3.select(this);
 		if(el.attr("class").indexOf("disabled") == -1) {
@@ -1497,6 +1626,7 @@ window.onload=function() {
 	d3.select('#diversiteit .page1 .row2 .col2').on("click", function() {
 		window.open('assets/data/diversiteit/samenvatting.pdf');
 	});
+
 	d3.select('#diversiteit .download.button2').on("click", function() {
 		var el = d3.select(this);
 		if(el.attr("class").indexOf("disabled") == -1) {
@@ -1507,6 +1637,12 @@ window.onload=function() {
 	d3.select('#diversiteit .page1 .row2 .col3').on("click", function() {
 		window.open('assets/data/diversiteit/toelichting.pdf');
 	});
+
+	/*
+	 * Waar op de voorpagina de PDF op de beginpagina wordt getoond,
+	 * wordt hier geprobeerd naar de pagina te schieten behorende tot
+	 * de op dat moment geselecteerde indicator.
+	 */
 	d3.select('#diversiteit .download.button3').on("click", function() {
 		var el = d3.select(this);
 		if(el.attr("class").indexOf("disabled") == -1) {
@@ -1522,6 +1658,10 @@ window.onload=function() {
 		}
 	});
 
+	/*
+	 * Als een van de voorpagina knoppen worden geselecteerd,
+	 * dan worden de visualisatie, checkboxen en selectboxen gereset.
+	 */
 	d3.select('#diversiteit .page1 .row1 .col1').on("click", function() {
 		d3.select('.page1').style('display', 'none');
 		d3.select('.page2').style('display', 'block');
@@ -1561,6 +1701,9 @@ window.onload=function() {
 		d3.selectAll("select#diversiteit_indicator").on("change")();
 	});
 
+	/*
+	 * Ophalen van menustructuur en het eerste verslagjaar
+	 */
 	d3.json("assets/data/diversiteit/diversiteit.categorieen.json?" + Math.floor(Math.random() * 1000), function(json) {
 		_diversiteit.categories = json;
 		d3.text("assets/data/diversiteit/1/data.csv?" + Math.floor(Math.random() * 1000), function(csv) {
@@ -1569,14 +1712,27 @@ window.onload=function() {
 		});
 	});
 
+	/*
+	 * Wisseling van thema
+	 */
 	d3.selectAll("select#diversiteit_themas").on("change", function(d, i) {
 		var sel = document.getElementById('diversiteit_themas');
 
+		/*
+		 * Alle dynamische elementen worden gereset
+		 */
 		_diversiteit.resetAll();
 
+		/*
+		 * Wanneer men een grafiek wil opslaan
+		 */
 		d3.selectAll(".opslaan").on("click", function() {
 			var height = 0;
 			var width = 0;
+
+			/*
+			 * Afhankelijk van kaart of grafiek modus
+			 */
 			if(d3.select('#diversiteit .kaart').style('display') == 'block') {
 				svg = document.getElementsByClassName('kaart')[0].childNodes[3];
 				var bbox = svg.getBBox();
@@ -1588,6 +1744,7 @@ window.onload=function() {
 				height = bbox.height;
 				width = bbox.width;
 			}
+
 			var copy = svg.cloneNode(true);
 			copyStylesInline(copy, svg);
 			var canvas = document.createElement("canvas");
@@ -1622,6 +1779,11 @@ window.onload=function() {
 		_diversiteit.clicked['thema'] = sel.selectedIndex;
 		_diversiteit.clicked['indicator'] = -1;
 		_diversiteit.clicked['values'] = [];
+
+		/*
+		 * Hier wordt de voorpagina geselecteerd. Alle visualisatie elementen
+		 * worden onzichtbaar gemaakt en de voorpagina weer zichtbaar.
+		 */
 		if([0].indexOf(sel.selectedIndex) >= 0) {
 			d3.selectAll("#diversiteit .menu .indicator").style("display", "none");
 			d3.selectAll("#diversiteit fieldset.niveau").style("display", "none");
@@ -1634,7 +1796,14 @@ window.onload=function() {
 			d3.selectAll("#diversiteit .page1").style("display", "block");
 			_diversiteit.showMap = 0;
 			d3.selectAll("select#diversiteit_indicator option").remove();
+		/*
+		 * Hier is de logica precies andersom
+		 */
 		} else {
+			/*
+			 * Op het moment dat er geen indicator geselecteerd is,
+			 * dan kan er ook niks gedownload worden.
+			 */
 			d3.selectAll("#diversiteit .download").attr("class", function() {
 				var obj = d3.select(this);
 				var cl = obj.attr("class");
@@ -1658,6 +1827,7 @@ window.onload=function() {
 			d3.selectAll("#diversiteit .page1").style("display", "none");
 
 			_diversiteit.initialize();
+
 			if('children' in _diversiteit.categories[sel.selectedIndex-1]) {
 				_diversiteit.parseIndicator(_diversiteit.categories[sel.selectedIndex-1]['children'], d3.selectAll("select#diversiteit_indicator"));
 			}
@@ -1667,9 +1837,15 @@ window.onload=function() {
 				_diversiteit.grafiekg.vis.redraw();
 			}
 		}
+		/*
+		 * Het doel hiervan was het bijhouden welke indicatoren hoe vaak werden bekeken.
+		 */
 		_diversiteit.track();
 	});
 
+	/*
+	 * Bij het selectern van een indicator
+	 */
 	d3.selectAll("select#diversiteit_indicator").on("change", function(d, i) {
 		var sel = document.getElementById('diversiteit_indicator');
 
@@ -1693,6 +1869,9 @@ window.onload=function() {
 			_diversiteit.grafiekg.vis.get("svg").selectAll('.text2').text(obj['axtitle'][0]);
 			var ind = d3.select(sel.options[sel.selectedIndex]).attr("name").replace('diversiteit_', '');
 
+			/*
+			 * Bijwerken van de SD en M
+			 */
 			var range = _diversiteit.getValues('N0', ind);
 			var content = [
 				{'g': 1, 'y': range[1]["Gemiddeld-SD"], 'x': 0, 'color': _diversiteit.colors['grafiek-sd']},
@@ -1708,6 +1887,9 @@ window.onload=function() {
 					}
 				}
 			}
+			/*
+			 * Bijwerken van de data in de grafiek
+			 */
 			_diversiteit.grafiekg.bar.set("data", data);
 			_diversiteit.grafiekg.vis.redraw();
 		}
